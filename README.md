@@ -163,18 +163,11 @@ concentration_tracker/
 
 ---
 
-# ⚙️ Installation
 
-## 1️⃣ Clone Repository
-
-```bash
-git clone https://github.com/YOUR_USERNAME/ai-focus-tracker.git
-cd ai-focus-tracker
-```
 
 ---
 
-## 2️⃣ Create Virtual Environment
+##  Create Virtual Environment
 
 ```bash
 python -m venv venv
@@ -186,19 +179,8 @@ Activate:
 ```bash
 venv\Scripts\activate
 ```
-
-### Linux/Mac
-```bash
-source venv/bin/activate
-```
-
 ---
 
-## 3️⃣ Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
 
 ---
 
@@ -212,11 +194,7 @@ numpy
 
 ---
 
-# ▶️ Run Application
 
-```bash
-python concen_tracker.py
-```
 
 ---
 
@@ -297,7 +275,7 @@ Planned upgrades:
 
 # 📸 Screenshots
 
-_Add screenshots of your dashboard here_
+
 
 ```markdown
 ![Dashboard](screenshots/dashboard.png)
@@ -324,5 +302,7 @@ This project is licensed under the MIT License.
 ---
 
 # 👨‍💻 Author
+
+Eby J K
 
 Built with ❤️ using Python, OpenCV, and MediaPipe.
