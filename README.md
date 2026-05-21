@@ -277,9 +277,8 @@ Planned upgrades:
 
 
 
-```markdown
-![Dashboard](screenshots/dashboard.png)
-```
+![Demo](images/demo1.png)
+![Demo1](images/demo2.png)
 
 ---
 
