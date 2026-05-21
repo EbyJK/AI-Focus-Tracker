@@ -5,10 +5,9 @@ import time
 from collections import deque
 import ui
 import theme
-# from mediapipe.solutions.drawing_utils import DrawingSpec
 
-# mp_face = mp.solutions.face_detection
-# face_detection = mp_face.FaceDetection(min_detection_confidence=0.5)
+
+
 mp_face_mesh = mp.solutions.face_mesh
 face_mesh = mp_face_mesh.FaceMesh(refine_landmarks=True)
 mp_drawing = mp.solutions.drawing_utils
@@ -53,13 +52,7 @@ def is_blinking(ear, threshold=0.2):
     return ear < threshold
 
 def get_head_pose_score(landmarks, image_w, image_h,baseline_x,baseline_y):
-    # nose = landmarks[1]
-    # x = nose.x * image_w
-    # y = nose.y * image_h
-    # d = np.linalg.norm(np.array([x - image_w / 2, y - image_h / 2]))
-    # if d < 0.3 * image_w:  
-    #     return 1.0
-    # return 0.0
+   
     nose = landmarks[1]
 
     dx = abs(nose.x - baseline_x)
@@ -77,13 +70,7 @@ def get_head_pose_score(landmarks, image_w, image_h,baseline_x,baseline_y):
 
     return 0.0
 
-# def get_gaze_score(landmarks, image_w, image_h):
-#     left_iris = landmarks[468]
-#     right_iris = landmarks[473]
-#     avg_x = (left_iris.x + right_iris.x) / 2.0
-#     if 0.5 < avg_x < 0.7:
-#         return 1.0  
-#     return 0.0     
+    
 
 def get_gaze_score(
     landmarks,
@@ -174,12 +161,7 @@ while True:
     if not ret:
         break
     
-    
-    # ui.draw_top_bar(frame)
-    # ui.draw_title(frame)
-    # ui_bg = frame.copy()
-    # cv2.rectangle(ui_bg, (0, 0), (frame.shape[1], 150), (30, 30, 30), -1)
-    # cv2.addWeighted(ui_bg, 0.6, frame, 0.4, 0, frame)
+   
 
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     image_h, image_w, _ = frame.shape
@@ -191,7 +173,7 @@ while True:
 
     avg_focus = int(np.mean(focus_scores)) if focus_scores else 0
     results = face_mesh.process(frame_rgb)
-    # face_results = face_detection.process(frame_rgb)
+    
 
     if results.multi_face_landmarks:
         for face_landmarks in results.multi_face_landmarks:
@@ -409,43 +391,9 @@ while True:
                         2
     )
             
-            # bar(smooth_score, frame)
-
-            # cv2.putText(frame, f"Concentration: {smooth_score}%", (30, 40),
-            #             cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
-
-            # if blink:
-            #     cv2.putText(frame, "BLINKING", (30, 170), 
-            #                cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 150, 255), 2)
-
-            # if smooth_score < 40:
-            #     distraction += 1
-            #     cv2.putText(frame, f"Distraction: {distraction}", (30, 200),
-            #                cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 100, 255), 2)
-            #     if distraction > 1000:
-            #         distraction = 0
-            #         print('turn off')
+           
     
-    # if face_results.detections:
-    #     for detection in face_results.detections:
-    #         bboxC = detection.location_data.relative_bounding_box
-    #         ih, iw, _ = frame.shape
-    #         x, y, w, h = int(bboxC.xmin * iw), int(bboxC.ymin * ih), int(bboxC.width * iw), int(bboxC.height * ih)
-            
-    #         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-    #         cv2.rectangle(frame, (x, y), (x + w, y + 20), (0, 200, 0), -1)
-    #         cv2.putText(frame, "FACE DETECTED", (x + 5, y + 15), 
-    #                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
     
-    # fps = cap.get(cv2.CAP_PROP_FPS)
-    # session_time = int(time.time() - session_start)
-
-    # minutes = session_time // 60
-    # seconds = session_time % 60
-
-    # avg_focus = int(np.mean(focus_scores)) if focus_scores else 0
-    # cv2.putText(canvas, f"FPS: {fps:.1f}", (image_w - 120, 30),
-    #            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (200, 200, 0), 2)
     cv2.putText(
     canvas,
     f"FPS: {fps:.1f}",
@@ -456,32 +404,10 @@ while True:
     2
 )
     
-    # status_color = (0, 255, 0) if distraction == 0 else (0, 100, 255)
-    # cv2.circle(frame, (image_w - 30, 70), 15, status_color, -1)
-    # cv2.putText(frame, "ACTIVE" if distraction == 0 else "DISTRACTED", 
-    #            (image_w - 120, 75), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (200, 200, 200), 2)
     
     status_color = (0, 255, 100) if smooth_score > 40 else (0, 100, 255)
 
-    # pulse_radius = ui.get_pulse_radius()
-
-    # cv2.circle(
-    #     canvas,
-    #     (1220, 90),
-    #     pulse_radius,
-    #     status_color,
-    #     -1
-    # )
-
-    # cv2.putText(
-    #     canvas,
-    #     ui.get_focus_state(smooth_score).upper(),
-    #     (1070, 95),
-    #     cv2.FONT_HERSHEY_SIMPLEX,
-    #     0.8,
-    #     (240, 240, 240),
-    #     2
-    # )
+    
     ui.draw_attention_heatmap(
     frame,
     gaze_points,
