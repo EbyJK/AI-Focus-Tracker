@@ -277,10 +277,8 @@ Planned upgrades:
 
 
 
-```markdown
 ![Demo](images/demo1.png)
 ![Demo1](images/demo2.png)
-```
 
 ---
 
